@@ -11,7 +11,7 @@ var options = {
 	},
 	settings: {
 		react: {
-			version: require('./package.json').dependencies.react,
+			version: require('./site/package.json').dependencies.react,
 		},
 	},
 	plugins: ['react', 'react-hooks'],
@@ -28,6 +28,7 @@ var options = {
 		'no-constant-condition': ['error', { checkLoops: false }],
 		'no-unused-vars': ['warn', { vars: 'local' }],
 		'no-restricted-syntax': ['error', 'BinaryExpression[operator="in"]'],
+		'react/prop-types': 0,
 	},
 };
 
