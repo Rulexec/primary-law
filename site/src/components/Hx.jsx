@@ -3,16 +3,52 @@ import React from 'react';
 export { Hx };
 
 function Hx(props) {
-	let { level, children } = props;
+	let { level, classes, children } = props;
+
+	let HComponent;
 
 	switch (level) {
 		case 1:
-			return <h1>{children}</h1>;
+			HComponent = function H1(props) {
+				return (
+					<h1 className={classes.h1} {...props}>
+						{props.children}
+					</h1>
+				);
+			};
+			break;
 		case 2:
-			return <h2>{children}</h2>;
+			HComponent = function H1(props) {
+				return (
+					<h2 className={classes.h2} {...props}>
+						{props.children}
+					</h2>
+				);
+			};
+			break;
 		case 3:
-			return <h3>{children}</h3>;
+			HComponent = function H1(props) {
+				return (
+					<h3 className={classes.h3} {...props}>
+						{props.children}
+					</h3>
+				);
+			};
+			break;
+		case 4:
 		default:
-			return <h4>{children}</h4>;
+			HComponent = function H1(props) {
+				return (
+					<h4 className={classes.h4} {...props}>
+						{props.children}
+					</h4>
+				);
+			};
+			break;
 	}
+
+	return <HComponent>{children}</HComponent>;
 }
+Hx.defaultProps = {
+	classes: {},
+};

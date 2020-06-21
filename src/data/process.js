@@ -1,11 +1,9 @@
+import { compareContent } from './compare.js';
+
 export { processRawData };
 
 function processRawData(rawData) {
-	let {
-		preamble,
-		parts_1_2_1994,
-		parts_1_2_2004,
-	} = rawData;
+	let { preamble, parts_1_2_1994, parts_1_2_2004 } = rawData;
 
 	let ver1994_1_2 = parse(parts_1_2_1994);
 	let ver2004_1_2 = parse(parts_1_2_2004);
@@ -23,8 +21,8 @@ function processRawData(rawData) {
 function merge(ver1994, ver2004) {
 	let clauses = new Map();
 
-	traverse(ver1994, part => setClause(part, 0));
-	traverse(ver2004, part => setClause(part, 1));
+	traverse(ver1994, (part) => setClause(part, 0));
+	traverse(ver2004, (part) => setClause(part, 1));
 
 	let common = [];
 
@@ -33,7 +31,7 @@ function merge(ver1994, ver2004) {
 	return common;
 
 	function makeCloningFun(parts) {
-		return function(part) {
+		return function (part) {
 			let newParts = [];
 
 			parts.push({
@@ -44,12 +42,19 @@ function merge(ver1994, ver2004) {
 			return {
 				deepFun: makeCloningFun(newParts),
 				fun(part) {
-					let [, { content: newContent }] = clauses.get(part.partName);
+					let [, { content: newContent }] = clauses.get(
+						part.partName,
+					);
+
+					let [contentA, contentB] = compareContent([
+						part.content,
+						newContent,
+					]);
 
 					newParts.push({
 						partName: part.partName,
-						content: part.content,
-						newContent,
+						content: contentA,
+						newContent: contentB,
 						equalContent: part.content === newContent,
 					});
 				},
@@ -58,7 +63,7 @@ function merge(ver1994, ver2004) {
 	}
 
 	function traverse(parts, fun, deepFun) {
-		parts.forEach(part => {
+		parts.forEach((part) => {
 			if (Array.isArray(part.parts)) {
 				if (deepFun) {
 					let { deepFun: newDeepFun, fun: newFun } = deepFun(part);
@@ -91,7 +96,7 @@ function parse(text) {
 		text,
 	});
 
-	parts.forEach(part => {
+	parts.forEach((part) => {
 		let clauses = parseParts({
 			regexp: /^\s*=\s*([^=]+)\s*=\s*$/gm,
 			text: part.content,
@@ -103,7 +108,7 @@ function parse(text) {
 			{
 				partName: '',
 				parts: clauses,
-			}
+			},
 		];
 	});
 

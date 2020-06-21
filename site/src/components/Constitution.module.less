@@ -1,0 +1,80 @@
+.page {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.constitution {
+	padding: 2em;
+	max-width: 90rem;
+}
+
+.h1 {
+	margin-top: 1em;
+}
+.h3 {
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+
+.clause {
+	display: flex;
+	flex-direction: row;
+}
+
+.clauseContentRow {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	flex-basis: 0;
+}
+.clauseContentRow + .clauseContentRow {
+	margin-left: 1em;
+}
+
+.clauseYear {
+	flex-shrink: 0;
+	color: gray;
+	margin-bottom: 0.5em;
+}
+.clauseContent {
+	flex-grow: 1;
+}
+
+@media only screen and (max-width: 60rem) {
+	.page {
+		display: block;
+	}
+	.constitution {
+		padding: 1em 0.5em;
+	}
+	.clause {
+		flex-direction: column;
+	}
+	.clauseYear {
+		margin-right: 1em;
+		margin-bottom: 0;
+	}
+	.clauseContentRow {
+		flex-direction: row;
+	}
+	.clauseContentRow + .clauseContentRow {
+		margin-left: 0;
+		margin-top: 1em;
+	}
+}
+
+@media only screen and (max-width: 28rem) {
+	.clauseContentRow {
+		flex-direction: column;
+	}
+	.clauseYear {
+		margin-right: 0;
+		margin-bottom: 0.5em;
+	}
+}
+
+@media only screen and (max-width: 23rem) {
+	.h1 {
+		font-size: 1.5em;
+	}
+}
