@@ -5,6 +5,7 @@ import '../components/global.less';
 import '../components/util.module.less';
 import { Constitution } from '../components/Constitution.jsx';
 import { Helmet } from 'react-helmet';
+import { YandexMetrika } from '../components/YandexMetrika.jsx';
 
 function IndexPage() {
 	return (
@@ -35,6 +36,7 @@ function IndexPageRender(props) {
 			<Helmet>
 				<title>Сравнение Конституции РБ 1994 и 2004</title>
 			</Helmet>
+			<YandexMetrika />
 			<Constitution {...{ preamble, common }} />
 		</>
 	);
