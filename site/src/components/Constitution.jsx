@@ -1,8 +1,10 @@
 import React from 'react';
 import { Fragment } from 'react';
+import GitHubButton from 'react-github-btn';
 import { TextBlock } from '../components/TextBlock.jsx';
 import { Hx } from '../components/Hx.jsx';
 import css from './Constitution.module.less';
+import cssText from './TextBlock.module.less';
 
 export { Constitution };
 
@@ -14,6 +16,24 @@ function Constitution(props) {
 			<div className={css.constitution}>
 				<TextBlock>{preamble}</TextBlock>
 				<Parts>{common}</Parts>
+				<hr className={css.hr} />
+				<p className={`${cssText.p} ${css.comment}`}>
+					Разделы III — IX в процессе сравнения.
+					<br />
+					Идеи, предложения, обратную связь можно оставить в{' '}
+					<a href="https://t.me/joinchat/BO-1IRCOFxcmIj74OM7KvQ">
+						телеграм-группе
+					</a>
+					, там же будет уведомлено о дополнениях разделов.
+				</p>
+				<p className={cssText.p}>
+					<GitHubButton
+						href="https://github.com/Rulexec/primary-law"
+						aria-label="GitHub Rulexec/primary-law repository"
+					>
+						Rulexec/primary-law
+					</GitHubButton>
+				</p>
 			</div>
 		</div>
 	);

@@ -1,4 +1,5 @@
 module.exports = {
+	pathPrefix: '/primary-law',
 	siteMetadata: {
 		title: `Gatsby Default Starter`,
 		description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
@@ -33,6 +34,12 @@ module.exports = {
 				cssLoaderOptions: {
 					camelCase: false,
 				},
+			},
+		},
+		{
+			resolve: `gatsby-plugin-env-variables`,
+			options: {
+				whitelist: ['NODE_ENV', 'YM_ID'],
 			},
 		},
 		// this (optional) plugin enables Progressive Web App + Offline functionality
