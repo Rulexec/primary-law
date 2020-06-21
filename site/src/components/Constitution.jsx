@@ -18,13 +18,24 @@ function Constitution(props) {
 				<Parts>{common}</Parts>
 				<hr className={css.hr} />
 				<p className={`${cssText.p} ${css.comment}`}>
-					Разделы III — IX в процессе сравнения.
+					Разделы IV — VI в процессе сравнения.
 					<br />
 					Идеи, предложения, обратную связь можно оставить в{' '}
 					<a href="https://t.me/joinchat/BO-1IRCOFxcmIj74OM7KvQ">
 						телеграм-группе
 					</a>
-					, там же будет уведомлено о дополнениях разделов.
+					, там же будет уведомлено о финише сравнения оставшихся разделов.
+				</p>
+				<p className={`${cssText.p} ${css.comment}`}>
+					Первоначальная версия Конституции взята из{' '}
+					<a href="https://ru.wikisource.org/wiki/Конституция_Республики_Беларусь/Первоначальная_редакция">
+						wikisource
+					</a>
+					, как и последняя{' '}
+					<a href="https://ru.wikisource.org/wiki/Конституция_Республики_Беларусь">
+						редакция
+					</a>
+					. В случае обнаружения неточностей, просьба сообщить.
 				</p>
 				<p className={cssText.p}>
 					<GitHubButton

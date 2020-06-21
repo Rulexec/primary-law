@@ -6,12 +6,16 @@ export { getData };
 const preamble = readTextFileSync(resolveRootPath('data/preamble.txt'));
 const parts_1_2_1994 = readTextFileSync(resolveRootPath('data/1-2-1994.txt'));
 const parts_1_2_2004 = readTextFileSync(resolveRootPath('data/1-2-2004.txt'));
+const parts_7_8_1994 = readTextFileSync(resolveRootPath('data/7-8-1994.txt'));
+const parts_7_8_2004 = readTextFileSync(resolveRootPath('data/7-8-2004.txt'));
 
 function getData() {
 	return {
 		preamble,
 		parts_1_2_1994,
 		parts_1_2_2004,
+		parts_7_8_1994,
+		parts_7_8_2004,
 	};
 }
 

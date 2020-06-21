@@ -3,12 +3,21 @@ import { compareContent } from './compare.js';
 export { processRawData };
 
 function processRawData(rawData) {
-	let { preamble, parts_1_2_1994, parts_1_2_2004 } = rawData;
+	let {
+		preamble,
+		parts_1_2_1994,
+		parts_1_2_2004,
+		parts_7_8_1994,
+		parts_7_8_2004,
+	} = rawData;
 
 	let ver1994_1_2 = parse(parts_1_2_1994);
 	let ver2004_1_2 = parse(parts_1_2_2004);
+	let ver1994_7_8 = parse(parts_7_8_1994);
+	let ver2004_7_8 = parse(parts_7_8_2004);
 
 	let common = merge(ver1994_1_2, ver2004_1_2);
+	common = common.concat(merge(ver1994_7_8, ver2004_7_8));
 
 	return {
 		preamble,
@@ -97,6 +106,25 @@ function parse(text) {
 	});
 
 	parts.forEach((part) => {
+		let chapters = parseParts({
+			regexp: /^\s*===\s*([^=]+)\s*===\s*$/gm,
+			text: part.content,
+		});
+
+		if (chapters.length) {
+			delete part.content;
+			chapters.forEach((part) => {
+				parseClauses(part, false);
+			});
+			part.parts = chapters;
+		} else {
+			parseClauses(part, true);
+		}
+	});
+
+	return parts;
+
+	function parseClauses(part, withFictiveChapter) {
 		let clauses = parseParts({
 			regexp: /^\s*=\s*([^=]+)\s*=\s*$/gm,
 			text: part.content,
@@ -104,15 +132,17 @@ function parse(text) {
 
 		delete part.content;
 
-		part.parts = [
-			{
-				partName: '',
-				parts: clauses,
-			},
-		];
-	});
-
-	return parts;
+		if (withFictiveChapter) {
+			part.parts = [
+				{
+					partName: '',
+					parts: clauses,
+				},
+			];
+		} else {
+			part.parts = clauses;
+		}
+	}
 }
 
 function parseParts({ regexp, text }) {
