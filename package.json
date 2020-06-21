@@ -6,7 +6,6 @@
 	"scripts": {
 		"test": "mocha 'src/**/*.test.js'"
 	},
-	"type": "module",
 	"devDependencies": {
 		"babel-eslint": "^10.1.0",
 		"eslint": "^7.3.0",
