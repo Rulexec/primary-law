@@ -5,29 +5,27 @@ export { processRawData };
 function processRawData(rawData) {
 	let {
 		preamble,
-		parts_1_2_1994,
-		parts_1_2_2004,
+		parts_1_3_1994,
+		parts_1_3_2004,
 		parts_5_6_1994,
 		parts_5_6_2004,
 		parts_7_8_1994,
 		parts_7_8_2004,
 	} = rawData;
 
-	let ver1994_1_2 = parse(parts_1_2_1994);
-	let ver2004_1_2 = parse(parts_1_2_2004);
+	let ver1994_1_3 = parse(parts_1_3_1994);
+	let ver2004_1_3 = parse(parts_1_3_2004);
 	let ver1994_5_6 = parse(parts_5_6_1994);
 	let ver2004_5_6 = parse(parts_5_6_2004);
 	let ver1994_7_8 = parse(parts_7_8_1994);
 	let ver2004_7_8 = parse(parts_7_8_2004);
 
-	let common = merge(ver1994_1_2, ver2004_1_2);
+	let common = merge(ver1994_1_3, ver2004_1_3);
 	common = common.concat(merge(ver1994_5_6, ver2004_5_6));
 	common = common.concat(merge(ver1994_7_8, ver2004_7_8));
 
 	return {
 		preamble,
-		ver1994: ver1994_1_2,
-		ver2004: ver2004_1_2,
 		common,
 	};
 }
