@@ -4,16 +4,6 @@ import css from './TextBlock.module.less';
 export { TextBlock };
 
 function TextBlock({ children }) {
-	// let paragraphs = children
-	// 	.split(/\n{2,}/)
-	// 	.map((x) => x.trim())
-	// 	.filter((x) => !!x)
-	// 	.map((text, index) => {
-	// 		text = text.replace(/\n/, ' ');
-
-	// 		return <p key={index}>{text}</p>;
-	// 	});
-
 	let text = children.replace(/[\s\r\n]+/, ' ');
 
 	let paragraphs = [];
@@ -34,13 +24,8 @@ function TextBlock({ children }) {
 		let [, diffText] = match;
 
 		addTextWithParagraphsSplit(diffText, css.diffSpan);
-		// lastParagraphSpans.push(
-		// 	<span key={lastParagraphSpans.length} className={css.diffSpan}>
-		// 		{diffText}
-		// 	</span>,
-		// );
 
-		if (/\.$/.test(diffText)) {
+		if (/[.;]$/.test(diffText)) {
 			commitParagraph();
 		}
 
@@ -57,7 +42,8 @@ function TextBlock({ children }) {
 			return;
 		}
 
-		let sentenses = prevText.split('.');
+		// let sentenses = prevText.split('.');
+		let sentenses = splitBy(prevText, /[.;]/g);
 
 		sentenses.forEach((sentense, index) => {
 			if (!sentense) {
@@ -69,10 +55,6 @@ function TextBlock({ children }) {
 			let isSentenseEnd =
 				sentenses.length > 1 && index < sentenses.length - 1;
 
-			if (isSentenseEnd) {
-				text += '.';
-			}
-
 			lastParagraphSpans.push(
 				<span key={lastParagraphSpans.length} className={className}>
 					{text}
@@ -83,6 +65,27 @@ function TextBlock({ children }) {
 				commitParagraph();
 			}
 		});
+
+		function splitBy(text, regexp) {
+			let result = [];
+
+			let offset = 0;
+
+			let match;
+			while (true) {
+				match = regexp.exec(text);
+				if (!match) {
+					result.push(text.slice(offset));
+					break;
+				}
+
+				result.push(text.slice(offset, match.index + match[0].length));
+
+				offset = match.index + match[0].length;
+			}
+
+			return result;
+		}
 	}
 	function addPrevText(toOffset) {
 		let prevText = text.slice(prevOffset, toOffset);

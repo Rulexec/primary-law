@@ -16,10 +16,18 @@
 }
 .h2 {
 	margin-top: 0.5em;
+
+	.headerLink {
+		top: 0.25em;
+	}
 }
 .h3 {
 	margin-top: 1em;
 	margin-bottom: 0.5em;
+
+	.headerLink {
+		top: 0.2em;
+	}
 }
 
 .partHeaderLink {
@@ -28,7 +36,7 @@
 	outline: none;
 }
 .partHeader {
-	margin-left: -20px;
+	position: relative;
 
 	&:hover {
 		margin-left: 0;
@@ -42,11 +50,10 @@
 		}
 	}
 }
-.partName {
-	padding-left: 20px;
-}
 .headerLink {
-	margin-left: -20px;
+	position: absolute;
+	left: -20px;
+	top: 0.5em;
 	margin-right: 4px;
 	display: none;
 }
@@ -94,15 +101,9 @@
 	.clause {
 		flex-direction: column;
 	}
-	.partHeader {
-		margin-left: 0;
-	}
 	.headerLink {
-		margin-left: 0;
+		position: static;
 		display: inline-block;
-	}
-	.partName {
-		padding-left: 0;
 	}
 	.clauseYear {
 		margin-right: 1em;

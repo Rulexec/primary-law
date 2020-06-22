@@ -1,4 +1,4 @@
-import { findMaxSubsequence } from '../util/max-subsequence.js';
+import { findMaxSubsequence } from '../util/max-subsequence.mjs';
 
 export { compareContent };
 
