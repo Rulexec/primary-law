@@ -52,6 +52,7 @@ function merge(ver1994, ver2004) {
 			let newParts = [];
 
 			parts.push({
+				id: idFromPartName(part.partName),
 				partName: part.partName,
 				parts: newParts,
 			});
@@ -69,6 +70,7 @@ function merge(ver1994, ver2004) {
 					]);
 
 					newParts.push({
+						id: idFromPartName(part.partName),
 						partName: part.partName,
 						content: contentA,
 						newContent: contentB,
@@ -104,6 +106,46 @@ function merge(ver1994, ver2004) {
 		arr[index] = {
 			content: part.content,
 		};
+	}
+}
+
+function idFromPartName(name) {
+	if (!name) {
+		return null;
+	}
+
+	let id = tryParseClause() || tryParseSection() || tryParseChapter();
+
+	if (!id) {
+		// eslint-disable-next-line no-console
+		console.warn('unprocessed id:', name);
+	}
+
+	return id;
+
+	function tryParseClause() {
+		let match = /^Статья ((?:-|\d+)(?:\/(?:-|\d+))?)/.exec(name);
+		if (!match) {
+			return null;
+		}
+
+		return match[1].replace('-', 'na').replace('/', '-');
+	}
+	function tryParseSection() {
+		let match = /^Глава (\d+(?:\/(?:-|\d+))?)/.exec(name);
+		if (!match) {
+			return null;
+		}
+
+		return 'section-' + match[1].replace('-', 'na').replace('/', '-');
+	}
+	function tryParseChapter() {
+		let match = /^Раздел ([IVX]+)/.exec(name);
+		if (!match) {
+			return null;
+		}
+
+		return 'chapter-' + match[1].toLowerCase();
 	}
 }
 

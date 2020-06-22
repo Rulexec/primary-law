@@ -5,6 +5,8 @@ import { TextBlock } from '../components/TextBlock.jsx';
 import { Hx } from '../components/Hx.jsx';
 import css from './Constitution.module.less';
 import cssText from './TextBlock.module.less';
+import { LinkIcon } from './icons/LinkIcon.jsx';
+import { Summary } from './Summary.jsx';
 
 export { Constitution };
 
@@ -14,6 +16,7 @@ function Constitution(props) {
 	return (
 		<div className={css.page}>
 			<div className={css.constitution}>
+				<Summary className={css.summary} common={common} />
 				<TextBlock>{preamble}</TextBlock>
 				<Parts>{common}</Parts>
 				<hr className={css.hr} />
@@ -64,10 +67,23 @@ function Parts(props) {
 
 		if (part.partName) {
 			headerNode = (
-				<Hx classes={css} level={level}>
-					{part.partName}
+				<Hx className={css.partHeader} classes={css} level={level}>
+					<LinkIcon className={css.headerLink} />
+					<span className={css.partName}>{part.partName}</span>
 				</Hx>
 			);
+
+			if (part.id) {
+				headerNode = (
+					<a
+						id={part.id}
+						className={css.partHeaderLink}
+						href={`#${part.id}`}
+					>
+						{headerNode}
+					</a>
+				);
+			}
 		}
 
 		if (Array.isArray(part.parts)) {

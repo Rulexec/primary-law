@@ -1,9 +1,10 @@
 import React from 'react';
+import cn from 'classnames';
 
 export { Hx };
 
 function Hx(props) {
-	let { level, classes, children } = props;
+	let { level, className, classes, children } = props;
 
 	let HComponent;
 
@@ -11,7 +12,7 @@ function Hx(props) {
 		case 1:
 			HComponent = function H1(props) {
 				return (
-					<h1 className={classes.h1} {...props}>
+					<h1 className={cn(className, classes.h1)} {...props}>
 						{props.children}
 					</h1>
 				);
@@ -20,7 +21,7 @@ function Hx(props) {
 		case 2:
 			HComponent = function H1(props) {
 				return (
-					<h2 className={classes.h2} {...props}>
+					<h2 className={cn(className, classes.h2)} {...props}>
 						{props.children}
 					</h2>
 				);
@@ -29,7 +30,7 @@ function Hx(props) {
 		case 3:
 			HComponent = function H1(props) {
 				return (
-					<h3 className={classes.h3} {...props}>
+					<h3 className={cn(className, classes.h3)} {...props}>
 						{props.children}
 					</h3>
 				);
@@ -39,7 +40,7 @@ function Hx(props) {
 		default:
 			HComponent = function H1(props) {
 				return (
-					<h4 className={classes.h4} {...props}>
+					<h4 className={cn(className, classes.h4)} {...props}>
 						{props.children}
 					</h4>
 				);
