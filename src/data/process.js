@@ -30,6 +30,9 @@ function processRawData(rawData) {
 	common = common.concat(merge(ver1994_5_6, ver2004_5_6));
 	common = common.concat(merge(ver1994_7_8, ver2004_7_8));
 
+	// Temporary hide two sections
+	common[3].parts.splice(1, 2);
+
 	return {
 		preamble,
 		common,
@@ -41,6 +44,18 @@ function merge(ver1994, ver2004) {
 
 	traverse(ver1994, (part) => setClause(part, 0));
 	traverse(ver2004, (part) => setClause(part, 1));
+
+	let missingClauses = new Set(clauses.keys());
+	traverse(ver1994, (part) => missingClauses.delete(part.partName));
+	if (!missingClauses.size) {
+		missingClauses = new Set(clauses.keys());
+		traverse(ver2004, (part) => missingClauses.delete(part.partName));
+	}
+
+	if (missingClauses.size) {
+		console.error('ver1994 missing clauses:', missingClauses);
+		return [];
+	}
 
 	let common = [];
 
@@ -125,7 +140,7 @@ function idFromPartName(name) {
 	return id;
 
 	function tryParseClause() {
-		let match = /^Статья ((?:-|\d+)(?:\/(?:-|\d+))?)/.exec(name);
+		let match = /^Статья ((?:-|\d+)(?:\/(?:-|\d+))?(?:_\d+)?)/.exec(name);
 		if (!match) {
 			return null;
 		}
@@ -133,7 +148,7 @@ function idFromPartName(name) {
 		return match[1].replace('-', 'na').replace('/', '-');
 	}
 	function tryParseSection() {
-		let match = /^Глава (\d+(?:\/(?:-|\d+))?)/.exec(name);
+		let match = /^Глава ((?:-|\d+)(?:\/(?:-|\d+))?(?:_\d+)?)/.exec(name);
 		if (!match) {
 			return null;
 		}

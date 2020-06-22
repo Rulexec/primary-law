@@ -43,7 +43,7 @@ function TextBlock({ children }) {
 		}
 
 		// let sentenses = prevText.split('.');
-		let sentenses = splitBy(prevText, /[.;]/g);
+		let sentenses = splitBy(prevText, /[.:;]/g);
 
 		sentenses.forEach((sentense, index) => {
 			if (!sentense) {
