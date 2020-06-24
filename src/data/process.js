@@ -30,9 +30,6 @@ function processRawData(rawData) {
 	common = common.concat(merge(ver1994_5_6, ver2004_5_6));
 	common = common.concat(merge(ver1994_7_8, ver2004_7_8));
 
-	// Temporary hide two sections
-	common[3].parts.splice(1, 2);
-
 	return {
 		preamble,
 		common,
